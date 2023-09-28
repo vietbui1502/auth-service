@@ -1,5 +1,10 @@
 package service
 
+import (
+	"github.com/vietbui1502/auth-service/domain"
+	"github.com/vietbui1502/auth-service/dto"
+)
+
 type AuthService interface {
 	Login(dto.LoginRequest) (*string, error)
 }
@@ -14,4 +19,14 @@ func (s DefaultAuthService) Login(req dto.LoginRequest) (*string, error) {
 		return nil, err
 	}
 	token, err := login.GenerateToken()
+
+	if err != nil {
+		return nil, err
+	}
+
+	return token, nil
+}
+
+func NewAuthService(reposiitory domain.AuthRepository) DefaultAuthService {
+	return DefaultAuthService{repo: reposiitory}
 }

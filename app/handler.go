@@ -5,6 +5,9 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+
+	"github.com/vietbui1502/auth-service/dto"
+	"github.com/vietbui1502/auth-service/service"
 )
 
 type Handlers struct {
@@ -12,6 +15,7 @@ type Handlers struct {
 }
 
 func (h *Handlers) Login(w http.ResponseWriter, r *http.Request) {
+	//log.Panicln("Enter login function")
 	var loginRequest dto.LoginRequest
 	if err := json.NewDecoder(r.Body).Decode(&loginRequest); err != nil {
 		log.Println("Error while decoding login request: " + err.Error())
